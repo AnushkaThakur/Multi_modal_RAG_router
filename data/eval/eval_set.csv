@@ -1,0 +1,31 @@
+id,question,ground_truth,difficulty
+1,What header is used for API authentication?,Authorization Bearer api key,easy
+2,What is the default list page size?,25,easy
+3,What is the maximum limit value for list endpoints?,100,easy
+4,Which HTTP status code indicates rate limiting?,429,easy
+5,What hash algorithm is used for webhook signatures?,HMAC SHA256,easy
+6,How long should old webhook payloads be accepted?,5 minutes,easy
+7,What status does a refund start with?,pending,easy
+8,Name one terminal refund status.,succeeded hard failed or canceled,easy
+9,What happens if the same idempotency key is reused with different payload?,HTTP 409,easy
+10,How many webhook retry attempts can occur?,8,easy
+11,How should a client continue pagination when more records exist?,Use next_cursor while has_more is true,medium
+12,Which headers help a client implement adaptive rate limiting?,X RateLimit Limit X RateLimit Remaining Retry After,medium
+13,What should a client do after receiving Retry-After?,Wait and retry respecting Retry After,medium
+14,How often should API keys be rotated?,Every 90 days,easy
+15,Can a charge be refunded beyond captured amount?,No it cannot,medium
+16,What fields are required to create a charge?,amount currency source,easy
+17,What should your retry strategy be for transient 5xx failures on charge creation?,Retry with same idempotency key,medium
+18,What confirms successful webhook delivery?,Any 2xx response,medium
+19,What indicates there are more pages to request?,has_more true,medium
+20,What three key scopes are mentioned for API keys?,read_only write_payments admin,easy
+21,How do you avoid duplicate charge creation during retries and also respect rate limits?,Use idempotency key and retry after backoff using Retry After,hard
+22,What two checks prevent webhook spoofing and replay attacks?,Verify HMAC SHA256 signature and reject payload older than 5 minutes,hard
+23,If a client sees 429 during POST charge calls what sequence is recommended?,Read Retry After then retry with same idempotency key,hard
+24,How can you safely process at-least-once webhook deliveries?,Deduplicate by event_id and return 2xx after processing,hard
+25,A merchant needs all transactions with minimal API pressure; what pagination behavior fits docs?,Use limit up to 100 and iterate cursor while has_more,hard
+26,Why is idempotency especially important for payment write endpoints?,Prevents duplicate side effects on retries,hard
+27,What evidence from docs shows refunds are not instant?,Refund creation is asynchronous and starts pending,medium
+28,How should a client handle an old signed webhook payload even if signature is valid?,Reject if older than 5 minutes,hard
+29,What combined retry policy handles both timeout and 429 for charge creation?,Exponential backoff with jitter respect Retry After and keep same idempotency key,hard
+30,When the same idempotency key and same payload are retried what should happen?,Return the first successful result,medium
